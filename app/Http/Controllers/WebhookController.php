@@ -42,20 +42,29 @@ class WebhookController extends Controller
                 'name' => '',
                 'address' => '',
             ],
+
+            // 数据
             'data' => [
-                'content' => '',    //  文本内容，用于邮件（支持html）、境外短信
-                'tmpl_id' => '', // 模板id 用于国内sms / email
-                'params' => '', // 模板参数 用于国内sms / email
-                'sign' => '', // 签名 用于国内sms
+                // 普通文本内容，用于邮件（支持html）、境外短信
+                'content' => '',
+
+                // 富文本内容， 可用于 钉钉、企业微信、公众号的图文通知
+                'rich_content' => [
+
+                ],
+
+                'tmpl_id' => '',    // 模板id 用于国内 sms / email
+                'params' => '',     // 模板参数 用于国内 sms / email
+                'sign' => '',       // 签名 用于国内sms
+
+                // 附件 用于邮件
                 'attachment' => [
 
-                ],  // 附件 用于邮件
-
+                ],
             ],
         ];
 
         $recipient = new Recipient($params['to']);
-
 
         $dsn = new Dsn($params['dsn']);
         $channel = new Channel($dsn);

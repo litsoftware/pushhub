@@ -23,6 +23,5 @@ class WebHookChannel
 
         $config = $notification->getChannelConfiguration();
 
-
     }
 }
