@@ -10,7 +10,7 @@ litNotifier 构建于 Laravel Notification / Job / Queue 之上，提供了一�
 
 ## Document
 
-### 通知渠道：SMS、EMAIL、CHAT、WECHAT_MP
+### 通知渠道：SMS、EMAIL、CHAT、WechatMp
 
 litNotifier 可以非常方便的发送消息到不同的渠道。每个渠道可以定定义不同的服务通道，且在发送是可以自定以使用的账号。
 
@@ -20,7 +20,7 @@ litNotifier 可以非常方便的发送消息到不同的渠道。每个渠道�
 - WECHAT_MP 通过公众号推送消息（同样支持小程序）
 
 
-### SMS
+### SMS Channel
 
 SMS 消息支持模板消息和纯文本消息。
 
@@ -31,7 +31,7 @@ SMS 消息支持模板消息和纯文本消息。
 |腾讯云SMS|sms://<配置名称>@qcloud|
 
 
-### EMAIL
+### EMAIL Channel
 
 邮件支持发送纯文本、本地邮件模板、附件。
 
@@ -41,7 +41,7 @@ SMS 消息支持模板消息和纯文本消息。
 |SMTP 邮件服务|email://<配置名称>@smtp|
 
 
-### Chat
+### Chat Channel
 
 向各社交软件发送消息。支持模板消息、文本消息、markdown、发送文件等。
 具体请见各软件支持情况。
@@ -53,7 +53,7 @@ SMS 消息支持模板消息和纯文本消息。
 |钉钉消息|chat://<配置名称>@dingtalk|[官方文档](https://developers.dingtalk.com/document/app/custom-robot-access)|
 
 
-### WECHAT_MP
+### WechatMp Channel
 
 待实现
 
