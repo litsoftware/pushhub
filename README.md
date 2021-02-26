@@ -49,8 +49,8 @@ SMS 消息支持模板消息和纯文本消息。
 
 |服务提供商| DSN | 文档 |
 |:---|:---|:---|
-|企业微信消息|chat://<配置名称>@wecom|https://work.weixin.qq.com/api/doc/90000/90136/91770｜
-|钉钉消息|chat://<配置名称>@dingtalk|https://developers.dingtalk.com/document/app/custom-robot-access｜
+|企业微信消息|chat://<配置名称>@wecom|[官方文档](https://work.weixin.qq.com/api/doc/90000/90136/91770)|
+|钉钉消息|chat://<配置名称>@dingtalk|[官方文档](https://developers.dingtalk.com/document/app/custom-robot-access)|
 
 
 ### WECHAT_MP
