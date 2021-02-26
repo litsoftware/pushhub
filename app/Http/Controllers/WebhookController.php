@@ -44,7 +44,7 @@ class WebhookController extends Controller
             ],
             'data' => [
                 'content' => '',    //  文本内容，用于邮件（支持html）、境外短信
-                'tmplId' => '', // 模板id 用于国内sms / email
+                'tmpl_id' => '', // 模板id 用于国内sms / email
                 'params' => '', // 模板参数 用于国内sms / email
                 'sign' => '', // 签名 用于国内sms
                 'attachment' => [

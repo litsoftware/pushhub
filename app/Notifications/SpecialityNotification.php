@@ -53,7 +53,7 @@ class SpecialityNotification extends Notification
         return [$this->channel->getChannel()];
     }
 
-    public function getChannelConfiguration()
+    public function getChannelConfiguration(): array
     {
         return $this->channel->configuration();
     }
@@ -68,6 +68,7 @@ class SpecialityNotification extends Notification
         return [
             'tmpl_id' => $this->content['tmpl_id'],
             'params' => $this->content['params'],
+            'sign' => $this->content['sign'],
         ];
     }
 
@@ -82,9 +83,9 @@ class SpecialityNotification extends Notification
      * @param  mixed  $notifiable
      * @return NotifierMail
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): NotifierMail
     {
-        return new NotifierMail($this->content, $from);
+        return new NotifierMail($this->content);
     }
 
     /**

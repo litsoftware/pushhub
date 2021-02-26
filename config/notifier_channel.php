@@ -41,8 +41,10 @@ return [
     'sms' => [
         'aliyun' => [
             'default' => [
-                'ak' => env('ALIYUN_SMS_AccessKey_ID'),
-                'sk' => env('ALIYUN_SMS_AccessKey_Secret'),
+                'ak' => env('ALIYUN_SMS_ACCESS_KEY_ID'),
+                'sk' => env('ALIYUN_SMS_ACCESS_KEY_SECRET'),
+                'region' => env('ALIYUN_SMS_REGION', 'cn-hangzhou'),
+
                 'sign' => ['创梦空间','支付猫','小猪软件','小猪京客'],
                 'tmpl' => [
                     ['SMS_171853005', '审核失败提醒'],
@@ -68,8 +70,18 @@ return [
     ],
 
     'wecom' => [
-        'cmzz' => [
-
+        'cmzz_warning' => [
+            'webhook' => '',
+            'key' => '',
         ]
-    ]
+    ],
+
+    'dingtalk' => [
+        'default' => [
+            'webhook' => '',
+            'access_token' => '',
+            'secret' => '',
+            'sign' => false, // 是否签名
+        ]
+    ],
 ];

@@ -24,7 +24,6 @@ class NotifierEmailChannel
             return;
         }
 
-
         $config = $notification->getChannelConfiguration();
         if ($from = $notification->getFrom()) {
             if (isset($from['name']) && $from['name']) {

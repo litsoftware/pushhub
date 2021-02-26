@@ -4,8 +4,11 @@
 namespace App\Notifier;
 
 
+use App\Exceptions\NotSupportChannelException;
+use App\Notifier\Channel\AliyunSms\AliyunSmsChannel;
+use App\Notifier\Channel\DingTalk\DingTalkChannel;
 use App\Notifier\Channel\NotifierEmail\NotifierEmailChannel;
-use Illuminate\Support\Str;
+use App\Notifier\Channel\WeCom\WeComChannel;
 
 class Channel
 {
@@ -27,7 +30,31 @@ class Channel
                 }
 
                 break;
+
+            case 'sms':
+                switch ($this->dsn->getUser()) {
+                    case 'aliyun':
+                        return AliyunSmsChannel::class;
+                }
+
+                break;
+
+            case 'chat':
+                switch ($this->dsn->getUser()) {
+                    case 'wecom':
+                        return WeComChannel::class;
+
+                    case 'dingtalk':
+                        return DingTalkChannel::class;
+                }
+
+                break;
+
+            default:
+
         }
+
+        throw new NotSupportChannelException();
     }
 
     public function configuration(): array
