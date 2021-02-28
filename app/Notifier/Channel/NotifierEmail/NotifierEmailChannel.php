@@ -5,7 +5,7 @@ namespace App\Notifier\Channel\NotifierEmail;
 
 
 use App\Jobs\ChannelMailerJob;
-use App\Notifications\SpecialityNotification;
+use App\Notifications\UniNotification;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
@@ -18,7 +18,7 @@ class NotifierEmailChannel
      * @param mixed $notifiable
      * @param mixed $notification
      */
-    public function send($notifiable, SpecialityNotification $notification)
+    public function send($notifiable, UniNotification $notification)
     {
         if (! $to = $notifiable->routeNotificationFor('notifier')) {
             return;

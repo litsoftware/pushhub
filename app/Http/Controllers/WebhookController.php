@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Notifications\SpecialityNotification;
+use App\Notifications\UniNotification;
 use App\Notifier\Channel;
 use App\Notifier\Dsn;
 use App\Notifier\Recipient\Recipient;
@@ -26,18 +26,50 @@ class WebhookController extends Controller
         // dsn = 'chat://wechat_mp@default'
 
 
-        $this->sendByChannel();
+        $this->wecom();
     }
 
-    public function sendByChannel()
+    private function wecom()
+    {
+        // 参数
+        $params = [
+            'dsn' => 'chat://cmzz_test@wecom',
+
+            // 数据
+            'data' => [
+                'content' => [
+                    'msgtype' => 'text',
+                    'text' => [
+                        'content' => '此时固定为text'
+                    ]
+                ],
+            ],
+        ];
+
+        $recipient = new Recipient(data_get($params, 'to'));
+
+        $dsn = new Dsn($params['dsn']);
+        $channel = new Channel($dsn);
+        $n = new UniNotification($channel);
+        $n->from(data_get($params, 'from'));
+        $n->content($params['data']);
+
+        Notification::route('notifier', $recipient)->notify($n);
+    }
+
+    private function sms()
     {
         // 参数
         $params = [
             'dsn' => 'sms://default@aliyun',
+
+            // 接收目标， 适用于 email/sms
             'to' => [
                 'name' => '',
                 'to' => '13632811904',
             ],
+
+            // 发送人 适用于 email
             'from' => [
                 'name' => '',
                 'address' => '',
@@ -45,13 +77,9 @@ class WebhookController extends Controller
 
             // 数据
             'data' => [
-                // 普通文本内容，用于邮件（支持html）、境外短信
+                // 普通文本内容(string)，用于邮件（支持html）、境外短信
+                // 富文本内容(array)，可用于 钉钉、企业微信、公众号的图文通知
                 'content' => '测试一下smtp的发送',
-
-                // 富文本内容， 可用于 钉钉、企业微信、公众号的图文通知
-                'rich_content' => [
-
-                ],
 
                 // 模板id 用于国内 sms / email
                 'tmpl_id' => 'SMS_126355301',
@@ -71,12 +99,12 @@ class WebhookController extends Controller
             ],
         ];
 
-        $recipient = new Recipient($params['to']);
+        $recipient = new Recipient(data_get($params, 'to'));
 
         $dsn = new Dsn($params['dsn']);
         $channel = new Channel($dsn);
-        $n = new SpecialityNotification($channel);
-        $n->from($params['from']);
+        $n = new UniNotification($channel);
+        $n->from(data_get($params, 'from'));
         $n->content($params['data']);
 
         Notification::route('notifier', $recipient)->notify($n);

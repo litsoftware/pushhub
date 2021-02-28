@@ -6,14 +6,16 @@ use App\Mail\NotifierMail;
 use App\Notifier\Channel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Str;
 
-class SpecialityNotification extends Notification
+class UniNotification extends Notification
 {
     use Queueable;
 
     private $channel;
     private $from;
     private $content;
+    private $noticeId;
 
     /**
      * Create a new notification instance.
@@ -23,6 +25,12 @@ class SpecialityNotification extends Notification
     public function __construct(Channel $channel)
     {
         $this->channel = $channel;
+        $this->noticeId = (string)Str::uuid();
+    }
+
+    public function getId(): string
+    {
+        return $this->noticeId;
     }
 
     public function from($from)
@@ -73,6 +81,16 @@ class SpecialityNotification extends Notification
     }
 
     public function toText(): string
+    {
+        return $this->content['content'];
+    }
+
+    public function toWeCom(): array
+    {
+        return $this->content['content'];
+    }
+
+    public function toDingTalk(): array
     {
         return $this->content['content'];
     }

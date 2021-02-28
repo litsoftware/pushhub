@@ -5,7 +5,7 @@ namespace App\Notifier\Channel\AliyunSms;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use App\Exceptions\ChannelUpstreamException;
+use App\Exceptions\WeComChannelMediaUploadException;
 use App\Exceptions\InvalidArgumentException;
 use App\Exceptions\InvalidConfigurationException;
 use App\Notifier\Recipient\Recipient;
@@ -13,7 +13,7 @@ use Throwable;
 
 class AliyunSmsClient
 {
-    private $conf;
+    private array $conf;
 
     public function __construct(array $conf)
     {
@@ -79,10 +79,10 @@ class AliyunSmsClient
                 ])
                 ->request();
             if ($result->toArray()['Code'] != "OK") {
-                throw new ChannelUpstreamException($result->toArray()['Message']);
+                throw new WeComChannelMediaUploadException($result->toArray()['Message']);
             }
         } catch (ClientException | ServerException $e) {
-            throw new ChannelUpstreamException($e->getErrorMessage());
+            throw new WeComChannelMediaUploadException($e->getErrorMessage());
         }
     }
 }

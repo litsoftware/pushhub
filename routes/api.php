@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\WebhookController::class, 'index']);
+Route::post('/upload', [\App\Http\Controllers\FileUploadController::class, 'store']);

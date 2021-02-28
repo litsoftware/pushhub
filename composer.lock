@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6750ee63b4897ee643c003d4d7da8f02",
+    "content-hash": "59376088312ab1bc0df2037b99b78d55",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -399,6 +399,57 @@
                 "source": "https://github.com/aliyun/openapi-sdk-php"
             },
             "time": "2021-02-26T03:38:10+00:00"
+        },
+        {
+            "name": "aliyuncs/oss-sdk-php",
+            "version": "v2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aliyun/aliyun-oss-php-sdk.git",
+                "reference": "492866331b7bafaac09506cf42f351b7e9e63766"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aliyun/aliyun-oss-php-sdk/zipball/492866331b7bafaac09506cf42f351b7e9e63766",
+                "reference": "492866331b7bafaac09506cf42f351b7e9e63766",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "OSS\\": "src/OSS"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aliyuncs",
+                    "homepage": "http://www.aliyun.com"
+                }
+            ],
+            "description": "Aliyun OSS SDK for PHP",
+            "homepage": "http://www.aliyun.com/product/oss/",
+            "support": {
+                "issues": "https://github.com/aliyun/aliyun-oss-php-sdk/issues",
+                "source": "https://github.com/aliyun/aliyun-oss-php-sdk/tree/v2.4.1"
+            },
+            "time": "2020-09-29T06:23:57+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -1625,6 +1676,123 @@
                 "source": "https://github.com/guzzle/psr7/tree/1.7.0"
             },
             "time": "2020-09-30T07:37:11+00:00"
+        },
+        {
+            "name": "iidestiny/flysystem-oss",
+            "version": "2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iiDestiny/flysystem-oss.git",
+                "reference": "289214b9f26e0ee9a382e1be66b555deb123bb75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iiDestiny/flysystem-oss/zipball/289214b9f26e0ee9a382e1be66b555deb123bb75",
+                "reference": "289214b9f26e0ee9a382e1be66b555deb123bb75",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "aliyuncs/oss-sdk-php": "^2.3",
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-openssl": "*",
+                "league/flysystem": "^1.0",
+                "nesbot/carbon": "^1.24.1 || ^2.0",
+                "php": "^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.2",
+                "phpunit/phpunit": "^6.5",
+                "symfony/var-dumper": "^3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Iidestiny\\Flysystem\\Oss\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "iidestiny",
+                    "email": "iidestiny@vip.qq.com"
+                }
+            ],
+            "description": "Flysystem adapter for the Oss storage.",
+            "keywords": [
+                "alioss",
+                "laravel",
+                "oss",
+                "阿里oss"
+            ],
+            "support": {
+                "issues": "https://github.com/iiDestiny/flysystem-oss/issues",
+                "source": "https://github.com/iiDestiny/flysystem-oss/tree/2.5"
+            },
+            "time": "2020-12-02T02:52:53+00:00"
+        },
+        {
+            "name": "iidestiny/laravel-filesystem-oss",
+            "version": "2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iiDestiny/laravel-filesystem-oss.git",
+                "reference": "ae3cd6fd3cd727eedda0e2bcd0403a6d79fe4223"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iiDestiny/laravel-filesystem-oss/zipball/ae3cd6fd3cd727eedda0e2bcd0403a6d79fe4223",
+                "reference": "ae3cd6fd3cd727eedda0e2bcd0403a6d79fe4223",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "iidestiny/flysystem-oss": "~2.0",
+                "php": "^7.0|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Iidestiny\\LaravelFilesystemOss\\OssStorageServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Iidestiny\\LaravelFilesystemOss\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "iidestiny",
+                    "email": "iidestiny@vip.qq.com"
+                }
+            ],
+            "description": "Oss storage filesystem for Laravel.",
+            "support": {
+                "issues": "https://github.com/iiDestiny/laravel-filesystem-oss/issues",
+                "source": "https://github.com/iiDestiny/laravel-filesystem-oss/tree/2.1"
+            },
+            "time": "2020-11-30T06:17:22+00:00"
         },
         {
             "name": "laravel/framework",
@@ -8847,7 +9015,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3|^8.0",
+        "php": "^7.4|^8.0",
         "ext-json": "*"
     },
     "platform-dev": [],

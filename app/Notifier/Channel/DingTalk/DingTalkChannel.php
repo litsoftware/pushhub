@@ -4,7 +4,7 @@
 namespace App\Notifier\Channel\DingTalk;
 
 
-use App\Notifications\SpecialityNotification;
+use App\Notifications\UniNotification;
 
 
 class DingTalkChannel
@@ -15,7 +15,7 @@ class DingTalkChannel
      * @param mixed $notifiable
      * @param mixed $notification
      */
-    public function send($notifiable, SpecialityNotification $notification)
+    public function send($notifiable, UniNotification $notification)
     {
         if (! $to = $notifiable->routeNotificationFor('notifier')) {
             return;

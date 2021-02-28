@@ -14,33 +14,35 @@ class Recipient implements NameInterface, EmailRecipientInterface, SmsRecipientI
     use SmsRecipientTrait;
     use NameTrait;
 
-    public function __construct(array $to)
+    public function __construct(array|null $to)
     {
-        $email = $phone = [];
+        if ($to) {
+            try {
+                $email = Validator::make($to, [
+                    'name' => 'string',
+                    'to' => 'email'
+                ])->validate();
 
-        try {
-            $email = Validator::make($to, [
-                'name'=>'string',
-                'to'=>'email'
-            ])->validate();
-            $this->email(data_get($email, 'to'));
-        } catch (ValidationException $e) {
+                $this->email(data_get($email, 'to'));
+                $this->name($to['name']);
+            } catch (ValidationException $e) {
+            }
+
+            try {
+                $phone = Validator::make($to, [
+                    'name' => 'string',
+                    'to' => 'phone:CN,HK,TW,MO,US,mobile'
+                ])->validate();
+
+                $this->phone(data_get($phone, 'to'));
+                $this->name($to['name']);
+            } catch (ValidationException $e) {
+            }
+
+            if ('' === data_get($email, 'to') && '' === data_get($phone, 'to')) {
+                throw new InvalidArgumentException(sprintf('"%s" needs an email or a phone but both cannot be empty.', static::class));
+            }
         }
-
-        try {
-            $phone = Validator::make($to, [
-                'name'=>'string',
-                'to'=>'phone:CN,HK,TW,MO,US,mobile'
-            ])->validate();
-            $this->phone(data_get($phone, 'to'));
-        } catch (ValidationException $e) {
-        }
-
-        if ('' === data_get($email, 'to') && '' === data_get($phone, 'to')) {
-            throw new InvalidArgumentException(sprintf('"%s" needs an email or a phone but both cannot be empty.', static::class));
-        }
-
-        $this->name($to['name']);
     }
 
     /**

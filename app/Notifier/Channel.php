@@ -58,6 +58,7 @@ class Channel
 
     public function configuration(): array
     {
-        return config(sprintf('notifier_channel.%s.%s.%s', $this->dsn->getScheme(), $this->dsn->getHost(), $this->dsn->getUser()));
+        $configKey = sprintf('notifier_channel.%s.%s.%s', $this->dsn->getScheme(), $this->dsn->getHost(), $this->dsn->getUser());
+        return config($configKey);
     }
 }

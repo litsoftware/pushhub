@@ -4,7 +4,7 @@
 namespace App\Notifier\Channel\AliyunSms;
 
 
-use App\Notifications\SpecialityNotification;
+use App\Notifications\UniNotification;
 use AlibabaCloud\Client\Exception\ClientException;
 use Throwable;
 
@@ -18,7 +18,7 @@ class AliyunSmsChannel
      * @throws ClientException
      * @throws Throwable
      */
-    public function send($notifiable, SpecialityNotification $notification)
+    public function send($notifiable, UniNotification $notification)
     {
         if (! $to = $notifiable->routeNotificationFor('notifier')) {
             return;
