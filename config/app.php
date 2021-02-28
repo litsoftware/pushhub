@@ -177,7 +177,8 @@ return [
 
         \App\Notifier\Channel\AliyunSms\AliyunSmsServiceProvider::class,
         \App\Notifier\Channel\NotifierEmail\NotifierEmailServiceProvider::class,
-
+        \App\Notifier\Channel\WeCom\WeComServiceProvider::class,
+        \App\Notifier\Channel\DingTalk\DingTalkServiceProvider::class,
 
     ],
 

@@ -69,17 +69,15 @@ return [
     'chat' => [
         'wecom' => [
             'cmzz_test' => [
-                'webhook' => 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send',
-                'key' => 'e7800125-0c9a-4c73-93ca-6b5420589ff5',
+                'key' => env('WECOM_WEB_HOOK_KEY_1'),
             ]
         ],
 
         'dingtalk' => [
             'default' => [
-                'webhook' => '',
-                'access_token' => '',
-                'secret' => '',
-                'sign' => false, // 是否签名
+                'token' => env('DINGTALK_WEB_HOOK_TOKEN_1'),
+                'secret' => env('DINGTALK_WEB_HOOK_SECRET_1'),
+                'sign' => env('DINGTALK_WEB_SIGN_ENABLE_1'), // 是否签名
             ]
         ],
     ]

@@ -4,6 +4,6 @@
 namespace App\Exceptions;
 
 
-class ChannelUpstreamException extends \InvalidArgumentException implements ExceptionInterface
+class ChannelUpstreamException extends \LogicException implements ExceptionInterface
 {
 }

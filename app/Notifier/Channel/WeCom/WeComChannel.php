@@ -22,10 +22,6 @@ class WeComChannel
      */
     public function send($notifiable, UniNotification $notification)
     {
-        if (! $to = $notifiable->routeNotificationFor('notifier')) {
-            return;
-        }
-
         $config = $notification->getChannelConfiguration();
         $content = $notification->toWeCom();
 
@@ -74,7 +70,7 @@ class WeComChannel
                 if ($media->{Media::FS_DRIVER} != 'local') {
                     $orgPath = $path;
                     $path = storage_path($path);
-                    Storage::copy($orgPath, $path);
+                    Storage::disk($media->{Media::FS_DRIVER})->copy($orgPath, $path);
                 }
 
                 $client->buildFileMsg($path);

@@ -26,7 +26,35 @@ class WebhookController extends Controller
         // dsn = 'chat://wechat_mp@default'
 
 
-        $this->wecom();
+        $this->dingTalk();
+    }
+
+    private function dingTalk()
+    {
+        // 参数
+        $params = [
+            'dsn' => 'chat://default@dingtalk',
+
+            // 数据
+            'data' => [
+                'content' => [
+                    'msgtype' => 'text',
+                    'text' => [
+                        'content' => '我就是我, 是不一样的烟火'
+                    ]
+                ],
+            ],
+        ];
+
+        $recipient = new Recipient(data_get($params, 'to'));
+
+        $dsn = new Dsn($params['dsn']);
+        $channel = new Channel($dsn);
+        $n = new UniNotification($channel);
+        $n->from(data_get($params, 'from'));
+        $n->content($params['data']);
+
+        Notification::route('notifier', $recipient)->notify($n);
     }
 
     private function wecom()

@@ -17,29 +17,25 @@ use App\Notifier\Channel\WeCom\Messages\TextMessage;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Storage;
+use Psr\Http\Message\ResponseInterface;
 
 class WeComWebHookRobot
 {
+    const UPLOAD_SERVICE_URL = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/upload_media';
+    const WEB_HOOK_URL = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send';
+
     private string $key;
     private Client $client;
-    private string $uploadServiceUri = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/upload_media';
     private MessageInterface $msg;
-    private $allTypes = [
-        'text',
-        'markdown',
-        'news',
-        'file',
-        'image'
-    ];
 
-    public function __construct(string $webHookUri, string $key)
+    public function __construct(string $key)
     {
-        if (!$webHookUri || !$key) {
+        if (!$key) {
             throw new InvalidConfigurationException();
         }
 
         $client = new Client([
-            'base_uri' => $webHookUri,
+            'base_uri' => self::WEB_HOOK_URL,
             'timeout'  => 2.0,
             'query' => ['key' => $key]
         ]);
@@ -58,7 +54,7 @@ class WeComWebHookRobot
             throw new InvalidArgumentException();
 
         $uploadClient = new Client([
-            'base_uri' => $this->uploadServiceUri,
+            'base_uri' => self::UPLOAD_SERVICE_URL,
             'timeout'  => 2.0,
             'query' => [
                 'key' => $this->key,
@@ -88,7 +84,7 @@ class WeComWebHookRobot
         return $mediaId;
     }
 
-    public function send(): \Psr\Http\Message\ResponseInterface
+    public function send(): ResponseInterface
     {
         return $this->client->post('', [
             'json' => $this->msg->toArray(),

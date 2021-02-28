@@ -4,6 +4,6 @@
 namespace App\Exceptions;
 
 
-class WeComChannelMediaUploadException extends \InvalidArgumentException implements ExceptionInterface
+class WeComChannelMediaUploadException extends \LogicException implements ExceptionInterface
 {
 }

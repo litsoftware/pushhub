@@ -4,6 +4,6 @@
 namespace App\Exceptions;
 
 
-class NotSupportChannelException extends \InvalidArgumentException implements ExceptionInterface
+class NotSupportChannelException extends \LogicException implements ExceptionInterface
 {
 }
