@@ -23,16 +23,15 @@ class Channel
     {
         switch ($this->dsn->getScheme()) {
             case 'email':
-                switch ($this->dsn->getUser()) {
-                    case 'aliyun':
-                    case 'netease':
+                switch ($this->dsn->getHost()) {
+                    case 'smtp':
                         return NotifierEmailChannel::class;
                 }
 
                 break;
 
             case 'sms':
-                switch ($this->dsn->getUser()) {
+                switch ($this->dsn->getHost()) {
                     case 'aliyun':
                         return AliyunSmsChannel::class;
                 }
@@ -40,7 +39,7 @@ class Channel
                 break;
 
             case 'chat':
-                switch ($this->dsn->getUser()) {
+                switch ($this->dsn->getHost()) {
                     case 'wecom':
                         return WeComChannel::class;
 
@@ -59,6 +58,6 @@ class Channel
 
     public function configuration(): array
     {
-        return config(sprintf('notifier_channel.%s.%s.%s', $this->dsn->getScheme(), $this->dsn->getUser(), $this->dsn->getHost()));
+        return config(sprintf('notifier_channel.%s.%s.%s', $this->dsn->getScheme(), $this->dsn->getHost(), $this->dsn->getUser()));
     }
 }

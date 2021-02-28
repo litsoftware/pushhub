@@ -12,12 +12,12 @@ litNotifier 构建于 Laravel Notification / Job / Queue 之上，提供了一�
 
 ### 通知渠道：SMS、EMAIL、CHAT、WechatMp
 
-litNotifier 可以非常方便的发送消息到不同的渠道。每个渠道可以定定义不同的服务通道，且在发送是可以自定以使用的账号。
+litNotifier 可以非常方便的发送消息到不同的渠道，且支持多账号配置。
 
 - EMAIL 通过邮件发送消息
 - CHAT 把消息推送到国内主流的社交软件。如 企业微信、钉钉
 - SMS 通过短信方式发送消息
-- WECHAT_MP 通过公众号推送消息（同样支持小程序）
+- WechatMp 通过公众号推送消息（同样支持小程序）
 
 
 ### SMS Channel
