@@ -43,8 +43,6 @@ class UniNotification extends Notification
         return $this->from;
     }
 
-
-
     public function content(array $content)
     {
         $this->content = $content;

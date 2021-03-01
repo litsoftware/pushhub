@@ -17,7 +17,7 @@ litNotifier 可以非常方便的发送消息到不同的渠道，且支持多�
 - EMAIL 通过邮件发送消息
 - CHAT 把消息推送到国内主流的社交软件。如 企业微信、钉钉
 - SMS 通过短信方式发送消息
-- WechatMp 通过公众号推送消息（同样支持小程序）
+- WechatMp 通过公众号推送消息
 
 
 ### SMS Channel
@@ -56,6 +56,102 @@ SMS 消息支持模板消息和纯文本消息。
 ### WechatMp Channel
 
 待实现
+
+## APIs
+
+- 发送消息 POST `/api/v1/webhook`
+
+    具体消息格式见下方
+
+        
+        curl '/api/v1/webhook' \
+        -H 'Content-Type: application/json' \
+        -d '
+        {
+          "dsn": "text",
+          "data": {
+            "content": '消息内容' 
+          }
+        }'
+
+
+- 文件上传 POST `/api/v1/upload`
+  
+  文件上传参考 : https://docs.guzzlephp.org/en/stable/request-options.html#multipart
+
+
+    POST https://qyapi.weixin.qq.com/cgi-bin/webhook/upload_media?key=693a91f6-7xxx-4bc4-97a0-0ec2sifa5aaa&type=file HTTP/1.1
+    Content-Type: multipart/form-data; boundary=-------------------------acebdf13572468
+    Content-Length: 220
+    ---------------------------acebdf13572468
+    Content-Disposition: form-data; name="media";filename="wework.txt"; filelength=6
+    Content-Type: application/octet-stream
+    mytext
+    ---------------------------acebdf13572468--
+
+
+## 接口参数与格式
+
+### EMAIL
+
+    {
+        "dsn": "email://default@aliyun",
+        "from": {
+            "name": "",
+            "address": ""
+        },
+        "to": {
+            "name": "",
+            "to": ""
+        },
+        "data": {
+            "content": "",
+            "tmpl_id": "",
+            "params": [],
+            "attachment": [],
+        },
+    }
+
+### SMS
+    
+    {
+        "dsn": "sms://default@aliyun",
+        "to": {
+            "country": "CN",
+            "country_code": "+86",
+            "to": ""
+        },
+        "data": {
+            "content": "",
+            "tmpl_id": "",
+            "params": [],
+            "sign": "",
+        },
+    }
+
+### WeCom
+
+content 参考： https://work.weixin.qq.com/api/doc/90000/90136/91770
+
+    {
+        "dsn": "chat://default@wecom",
+        "data": {
+            "content": []
+        },
+    }
+
+
+### DingTalk
+
+content 参考： https://developers.dingtalk.com/document/app/custom-robot-access
+
+    {
+        "dsn": "chat://default@dingtalk",
+        "data": {
+            "content": []
+        },
+    }
+
 
 ## TODO
 

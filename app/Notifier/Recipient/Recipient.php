@@ -30,12 +30,12 @@ class Recipient implements NameInterface, EmailRecipientInterface, SmsRecipientI
 
             try {
                 $phone = Validator::make($to, [
-                    'name' => 'string',
-                    'to' => 'phone:CN,HK,TW,MO,US,mobile'
+                    'to' => 'phone:'.implode(',', ['CN','HK','TW','MO','US','mobile', data_get($to, 'country')])
                 ])->validate();
 
                 $this->phone(data_get($phone, 'to'));
-                $this->name($to['name']);
+                $this->country($to['country']);
+                $this->countryCode($to['country_code']);
             } catch (ValidationException $e) {
             }
 
@@ -76,6 +76,20 @@ class Recipient implements NameInterface, EmailRecipientInterface, SmsRecipientI
     public function name(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function country(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function countryCode(string $countryCode): self
+    {
+        $this->countryCode = $countryCode;
 
         return $this;
     }

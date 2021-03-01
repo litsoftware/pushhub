@@ -64,6 +64,13 @@ return [
                 ]
             ]
         ],
+
+        'qcloud' => [
+            'default' => [
+                'app_id' => '',
+                'app_key' => '',
+            ]
+        ]
     ],
 
     'chat' => [

@@ -17,7 +17,8 @@
         "iidestiny/laravel-filesystem-oss": "^2.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "propaganistas/laravel-phone": "^4.3"
+        "propaganistas/laravel-phone": "^4.3",
+        "qcloudsms/qcloudsms_php": "^0.1.4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

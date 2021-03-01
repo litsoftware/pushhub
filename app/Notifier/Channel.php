@@ -8,6 +8,7 @@ use App\Exceptions\NotSupportChannelException;
 use App\Notifier\Channel\AliyunSms\AliyunSmsChannel;
 use App\Notifier\Channel\DingTalk\DingTalkChannel;
 use App\Notifier\Channel\NotifierEmail\NotifierEmailChannel;
+use App\Notifier\Channel\QcloudSms\QcloudSmsChannel;
 use App\Notifier\Channel\WeCom\WeComChannel;
 
 class Channel
@@ -34,6 +35,9 @@ class Channel
                 switch ($this->dsn->getHost()) {
                     case 'aliyun':
                         return AliyunSmsChannel::class;
+
+                    case 'qcloud':
+                        return QcloudSmsChannel::class;
                 }
 
                 break;

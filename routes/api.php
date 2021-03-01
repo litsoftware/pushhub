@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\WebhookController::class, 'index']);
-Route::post('/upload', [\App\Http\Controllers\FileUploadController::class, 'store']);
+Route::group(['prefix' => 'v1'], function () {
+    Route::post('/webhook', [\App\Http\Controllers\WebhookController::class, 'index']);
+    Route::post('/upload', [\App\Http\Controllers\FileUploadController::class, 'store']);
+});
+
