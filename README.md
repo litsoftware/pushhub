@@ -80,6 +80,7 @@ SMS 消息支持模板消息和纯文本消息。
   文件上传参考 : https://docs.guzzlephp.org/en/stable/request-options.html#multipart
 
 
+```
     POST https://qyapi.weixin.qq.com/cgi-bin/webhook/upload_media?key=693a91f6-7xxx-4bc4-97a0-0ec2sifa5aaa&type=file HTTP/1.1
     Content-Type: multipart/form-data; boundary=-------------------------acebdf13572468
     Content-Length: 220
@@ -88,6 +89,8 @@ SMS 消息支持模板消息和纯文本消息。
     Content-Type: application/octet-stream
     mytext
     ---------------------------acebdf13572468--
+```
+
 
 
 ## 接口参数与格式
