@@ -7,6 +7,10 @@ litNotifier 构建于 Laravel Notification / Job / Queue 之上，提供了一�
 
 ## Usage
 
+1. pull code
+2. 修改 `config/notifier_channel.php`，填写消息渠道参数配置
+3. `php artisan serv` 启动服务
+
 
 ## Document
 
@@ -134,7 +138,7 @@ SMS 消息支持模板消息和纯文本消息。
 
 ### WeCom
 
-content 参考： https://work.weixin.qq.com/api/doc/90000/90136/91770
+content 结构同官方，参考： https://work.weixin.qq.com/api/doc/90000/90136/91770
 
     {
         "dsn": "chat://default@wecom",
@@ -146,7 +150,7 @@ content 参考： https://work.weixin.qq.com/api/doc/90000/90136/91770
 
 ### DingTalk
 
-content 参考： https://developers.dingtalk.com/document/app/custom-robot-access
+content 结构同官方，参考： https://developers.dingtalk.com/document/app/custom-robot-access/title-72m-8ag-pqw
 
     {
         "dsn": "chat://default@dingtalk",
