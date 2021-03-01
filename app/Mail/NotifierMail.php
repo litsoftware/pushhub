@@ -30,13 +30,13 @@ class NotifierMail extends Mailable
      */
     public function build()
     {
-        if (!$this->data['tmpl_id']) {
+        if (!$this->data['view']) {
             return $this->view('mail.default', [
                 'content' => $this->data['content']
             ]);
         } else {
             $params = $this->data['params'];
-            return $this->view($this->data['tmpl_id'], compact('params'));
+            return $this->view($this->data['view'], compact('params'));
         }
     }
 }

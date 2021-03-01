@@ -97,16 +97,16 @@ SMS 消息支持模板消息和纯文本消息。
     {
         "dsn": "email://default@aliyun",
         "from": {
-            "name": "",
-            "address": ""
+            "name": "test",
+            "address": "test@qq.com"
         },
         "to": {
-            "name": "",
-            "to": ""
+            "name": "haha",
+            "to": "haha@qq.com"
         },
         "data": {
-            "content": "",
-            "tmpl_id": "",
+            "content": "测试消息",
+            "view": "email.haha",
             "params": [],
             "attachment": [],
         },
@@ -119,7 +119,7 @@ SMS 消息支持模板消息和纯文本消息。
         "to": {
             "country": "CN",
             "country_code": "+86",
-            "to": ""
+            "to": "13800138000"
         },
         "data": {
             "content": "",
