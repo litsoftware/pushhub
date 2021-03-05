@@ -85,7 +85,7 @@ SMS 消息支持模板消息和纯文本消息。
 
 
 ```
-    POST https://qyapi.weixin.qq.com/cgi-bin/webhook/upload_media?key=693a91f6-7xxx-4bc4-97a0-0ec2sifa5aaa&type=file HTTP/1.1
+    POST http://127.0.0.1/api/v1/upload HTTP/1.1
     Content-Type: multipart/form-data; boundary=-------------------------acebdf13572468
     Content-Length: 220
     ---------------------------acebdf13572468
