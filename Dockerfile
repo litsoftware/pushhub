@@ -23,7 +23,7 @@ FROM litsoftware/php:8-cli AS cli
 WORKDIR /var/www
 
 COPY --from=fpm /var/www/.  /var/www
-COPY /var/www/docker/start.sh /usr/local/bin/start
+COPY ./docker/start.sh /usr/local/bin/start
 RUN chomd +x /usr/local/bin/start
 
 CMD ["/usr/local/bin/start"]
