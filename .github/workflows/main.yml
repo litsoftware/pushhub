@@ -19,6 +19,8 @@ env:
   NGINX_IMAGE_NAME: litnotifier-nginx
   CLI_IMAGE_NAME: litnotifier-cli
 
+  VERSION: ''
+
   FINAL_FPM_IMAGE_ID: ''
   FINAL_NGINX_IMAGE_ID: ''
   FINAL_CLI_IMAGE_ID: ''
@@ -49,17 +51,14 @@ jobs:
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          if [[ $VERSION == "main" ]]; then
-            VERSION=latest
-          fi
 
-          FINAL_FPM_IMAGE_ID=$DOCKER_REGISTRY/$FPM_IMAGE_NAME:$VERSION
-          FINAL_CLI_IMAGE_ID=$DOCKER_REGISTRY/$CLI_IMAGE_NAME:$VERSION
-          FINAL_NGINX_IMAGE_ID=$DOCKER_REGISTRY/$NGINX_IMAGE_NAME:$VERSION
+          FINAL_FPM_IMAGE_ID=$DOCKER_REGISTRY/$FPM_IMAGE_NAME
+          FINAL_CLI_IMAGE_ID=$DOCKER_REGISTRY/$CLI_IMAGE_NAME
+          FINAL_NGINX_IMAGE_ID=$DOCKER_REGISTRY/$NGINX_IMAGE_NAME
 
-          docker tag $FPM_IMAGE_NAME $FINAL_FPM_IMAGE_ID
-          docker tag $CLI_IMAGE_NAME $FINAL_CLI_IMAGE_ID
-          docker tag $NGINX_IMAGE_NAME $FINAL_NGINX_IMAGE_ID
+          echo $FINAL_FPM_IMAGE_ID
+          echo $FINAL_CLI_IMAGE_ID
+          echo $FINAL_NGINX_IMAGE_ID
 
       - name: Log into registry
         if: startsWith(github.ref, 'refs/tags/v')
@@ -69,9 +68,21 @@ jobs:
       - name: Push image to docker hub
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          docker push $FINAL_FPM_IMAGE_ID
-          docker push $FINAL_NGINX_IMAGE_ID
-          docker push $FINAL_CLI_IMAGE_ID
+          docker tag $FPM_IMAGE_NAME $FINAL_FPM_IMAGE_ID:$VERSION
+          docker tag $CLI_IMAGE_NAME $FINAL_CLI_IMAGE_ID:$VERSION
+          docker tag $NGINX_IMAGE_NAME $FINAL_NGINX_IMAGE_ID:$VERSION
+
+          docker push $FINAL_FPM_IMAGE_ID:$VERSION
+          docker push $FINAL_NGINX_IMAGE_ID:$VERSION
+          docker push $FINAL_CLI_IMAGE_ID:$VERSION
+
+          docker tag $FPM_IMAGE_NAME $FINAL_FPM_IMAGE_ID:latest
+          docker tag $CLI_IMAGE_NAME $FINAL_CLI_IMAGE_ID:latest
+          docker tag $NGINX_IMAGE_NAME $FINAL_NGINX_IMAGE_ID:latest
+
+          docker push $FINAL_FPM_IMAGE_ID:latest
+          docker push $FINAL_NGINX_IMAGE_ID:latest
+          docker push $FINAL_CLI_IMAGE_ID:latest
 
       - name: Trigger off image sync
         if: startsWith(github.ref, 'refs/tags/v')
