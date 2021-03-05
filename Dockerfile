@@ -9,6 +9,8 @@ WORKDIR /var/www
 
 COPY . .
 
+RUN chmod -R 777 storage bootstrap
+
 RUN composer -V \
     && composer install --no-dev --no-progress -o
 
