@@ -7,10 +7,17 @@ litNotifier 构建于 Laravel Notification / Job / Queue 之上，提供了一�
 
 ## Usage
 
+### develop
+
 1. pull code
 2. 修改 `config/notifier_channel.php`，填写消息渠道参数配置
 3. `php artisan serv` 启动服务
 
+### Deploy for production environment
+
+1. pull code
+2. 修改 `deploy/.env`
+3. `cd deploy && docker-compose up -d`
 
 ## Document
 
@@ -164,5 +171,5 @@ content 结构同官方，参考： https://developers.dingtalk.com/document/app
 
 - [ ] 微信公众号/小程序 模板消息推送支持
 - [ ] 接口文档
-- [ ] 管理控制台
+- [ ] 管理控制台，开发中
 - [ ] 日志
