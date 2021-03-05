@@ -74,7 +74,7 @@ jobs:
           docker push $FINAL_CLI_IMAGE_ID
 
       - name: Trigger off image sync
-#        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
           curl -H "Accept: application/vnd.github.everest-preview+json" \
               -H "Authorization: token ${{ secrets.IMAGE_SYNCER_WEBHOOK_TOKEN }}" \
