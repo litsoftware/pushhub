@@ -1,13 +1,9 @@
-## Install Stage
-FROM php:fpm-alpine3.12 AS installer
-
-# Install composer
-RUN set -eux;\
-    \
-    curl -o composer-setup.php https://getcomposer.org/installer -L; \
-    php composer-setup.php --install-dir=/usr/local/bin/ --filename=composer; \
-    rm -f composer-setup.php; \
-    chmod +x /usr/local/bin/composer
+############################
+#
+# build for web app
+#
+############################
+FROM litsoftware/php:8-fpm AS fpm
 
 WORKDIR /var/www
 
@@ -16,10 +12,32 @@ COPY . .
 RUN composer -V \
     && composer install --no-dev --no-progress -o
 
+USER $user
 
-## final build
-FROM php:fpm-alpine3.12
+
+############################
+#
+# build for laravl
+#
+############################
+FROM litsoftware/php:8-cli AS cli
 
 WORKDIR /var/www
 
-COPY --from=installer /var/www. .
+COPY --from=installer /var/www/.  /var/www
+COPY /var/www/docker/start.sh /usr/local/bin/start
+RUN chomd +x /usr/local/bin/start
+
+CMD ["/usr/local/bin/start"]
+
+
+############################
+#
+# build for laravl
+#
+############################
+FROM nginx:latest AS web
+
+WORKDIR /var/www
+
+COPY --from=installer /var/www/.  /var/www

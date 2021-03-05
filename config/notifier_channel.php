@@ -43,7 +43,7 @@ return [
                 'sk' => env('ALIYUN_SMS_ACCESS_KEY_SECRET'),
                 'region' => env('ALIYUN_SMS_REGION', 'cn-hangzhou'),
 
-                'sign' => ['创梦空间','支付猫','小猪软件','小猪京客'],
+                'sign' => explode(',', env('ALIYUN_SMS_SINGS', '')),
                 'tmpl' => [
                     ['id' => 'SMS_171853005', 'title' => '审核失败提醒'],
                     ['id' => 'SMS_171857990', 'title' => '账户余额严重不足提醒'],
@@ -67,8 +67,8 @@ return [
 
         'qcloud' => [
             'default' => [
-                'app_id' => '',
-                'app_key' => '',
+                'app_id' => env('QCLOUD_SMS_APP_ID'),
+                'app_key' => env('QCLOUD_SMS_APP_KEY'),
             ]
         ]
     ],

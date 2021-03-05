@@ -1,0 +1,76 @@
+version: '3.7'
+
+networks:
+  nofifier:
+    driver: bridge
+
+services:
+  fpm:
+    image: ${IMAGE_REPO}/litnotifier-fpm:latest
+    restart: always
+    depends_on:
+      - redis
+    volumes:
+      - "./.project_env:/var/www/.env"
+    networks:
+      - nofifier
+
+  worker:
+    image: ${IMAGE_REPO}/litnotifier-cli:latest
+    restart: always
+    depends_on:
+      - redis
+    volumes:
+      - "./.project_env:/var/www/.env"
+    environment:
+      APP_ENV: production
+      CONTAINER_ROLE: worker
+    networks:
+      - nofifier
+
+  scheduler:
+    image: ${IMAGE_REPO}/litnotifier-cli:latest
+    restart: always
+    depends_on:
+      - redis
+    environment:
+      APP_ENV: production
+      CONTAINER_ROLE: scheduler
+    volumes:
+      - "./.project_env:/var/www/.env"
+    networks:
+      - nofifier
+
+  redis:
+    image: redis:alpine
+    restart: always
+    networks:
+      - nofifier
+
+  web:
+    image: ${IMAGE_REPO}/litnotifier-nginx
+    restart: always
+    ports:
+      - "${HTTP_PORT}:8080"
+    depends_on:
+      - fpm
+    volumes:
+      - "./.project_env:/var/www/.env"
+      - ./docker-compose/nginx:/etc/nginx/conf.d
+    networks:
+      - nofifier
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_USER: ${MYSQL_USERNAME}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+      - ${DATA_PATH}/mysql:/var/lib/mysql
+    networks:
+      - nofifier

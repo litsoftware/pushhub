@@ -1,0 +1,63 @@
+name: build docker image
+
+on:
+  push:
+    branches:
+      - main
+      - development
+  pull_request:
+    branches:
+      - main
+      - master
+    tags:
+      - v*
+
+env:
+  DOCKER_REGISTRY: litsoftware
+  IMAGE_NAME: litnotifier
+  CLI_IMAGE_NAME: litnotifier-cli
+  FINAL_IMAGE_ID: ''
+  FINAL_CLI_IMAGE_ID: ''
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build image
+        run: |
+          docker build . --file Dockerfile --target web --tag $IMAGE_NAME
+          docker build . --file Dockerfile --target cli --tag $CLI_IMAGE_NAME
+
+      - name: Tag image
+        run: |
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          # Use Docker `latest` tag convention
+          [ "$VERSION" == "$default-branch" ] && VERSION=latest
+
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+
+          FINAL_IMAGE_ID=$DOCKER_REGISTRY/$IMAGE_NAME:$VERSION
+          FINAL_CLI_IMAGE_ID=$DOCKER_REGISTRY/$CLI_IMAGE_NAME:$VERSION
+
+          docker tag $IMAGE_NAME $FINAL_IMAGE_ID
+          docker tag $CLI_IMAGE_NAME $FINAL_CLI_IMAGE_ID
+
+      - name: Log into registry
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          echo "${{ secrets.DOCKER_REGISTRY_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} --password-stdin
+
+      - name: Push image to docker hub
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          docker push $FINAL_IMAGE_ID
+          docker push $FINAL_CLI_IMAGE_ID
