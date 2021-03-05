@@ -9,10 +9,9 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN composer -V \
-    && composer install --no-dev --no-progress -o
-
-USER $user
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
 
 
 ############################
@@ -24,7 +23,7 @@ FROM litsoftware/php:8-cli AS cli
 
 WORKDIR /var/www
 
-COPY --from=installer /var/www/.  /var/www
+COPY --from=fpm /var/www/.  /var/www
 COPY /var/www/docker/start.sh /usr/local/bin/start
 RUN chomd +x /usr/local/bin/start
 
@@ -40,4 +39,4 @@ FROM nginx:latest AS web
 
 WORKDIR /var/www
 
-COPY --from=installer /var/www/.  /var/www
+COPY --from=fpm /var/www/.  /var/www
