@@ -1,6 +1,6 @@
 ############################
 #
-# build for web app
+# build for laravel web app
 #
 ############################
 FROM litsoftware/php:8-fpm AS fpm
@@ -9,14 +9,13 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
+RUN composer -V \
+    && composer install --no-dev --no-progress -o
 
 
 ############################
 #
-# build for laravl
+# build for laravel cli
 #
 ############################
 FROM litsoftware/php:8-cli AS cli
@@ -32,7 +31,7 @@ CMD ["/usr/local/bin/start"]
 
 ############################
 #
-# build for laravl
+# build for nginx
 #
 ############################
 FROM nginx:latest AS web
