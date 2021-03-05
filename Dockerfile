@@ -11,12 +11,6 @@ COPY . .
 
 RUN chmod -R 777 storage bootstrap
 
-RUN user=www-data
-RUN uid=1000
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
-
 RUN composer -V \
     && composer install --no-dev --no-progress -o
 
