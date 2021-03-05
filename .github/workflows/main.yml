@@ -10,7 +10,7 @@ on:
       - main
       - master
   release:
-    types: [published,released]
+    types: [published]
 
 env:
   DOCKER_REGISTRY: litsoftware
