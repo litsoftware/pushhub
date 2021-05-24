@@ -1,21 +1,15 @@
 <?php
 
+use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::group(['prefix' => 'v1'], function () {
-    Route::post('/webhook', [\App\Http\Controllers\WebhookController::class, 'index']);
-    Route::post('/upload', [\App\Http\Controllers\FileUploadController::class, 'store']);
+Route::any('health-check', function () {
+    return 'ok';
 });
 
+Route::group(['prefix' => 'v1', 'name' => 'api.'], function () {
+    Route::post('/webhook', [WebhookController::class, 'index'])->name('webhook');
+    Route::post('/upload', [FileUploadController::class, 'store'])->name('media.upload');
+});

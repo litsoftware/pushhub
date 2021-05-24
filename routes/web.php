@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Application;
+use App\Http\Controllers\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::any('/', function () {
-    return 'ok';
+    return redirect(\route('dash.index'));
+});
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->prefix('dashboard')
+    ->name('dash.')
+    ->group(function () {
+
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::get('/application', Application::class)->name('application');
+    Route::get('/channel', Application::class)->name('channel');
+    Route::get('/log', Application::class)->name('log');
 });
