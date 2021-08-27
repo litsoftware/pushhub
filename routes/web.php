@@ -1,18 +1,21 @@
 <?php
 
+use App\Http\Livewire\Application;
+use App\Http\Livewire\Channel;
+use App\Http\Livewire\Log;
+use App\Http\Controllers\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::any('/', function () {
-    return 'ok';
+    return redirect(\route('dash.index'));
+});
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->prefix('dashboard')
+    ->name('dash.')
+    ->group(function () {
+
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::get('/channels', \App\Http\Livewire\ChannelManagement::class)->name('channel');
+    Route::get('/logs', \App\Http\Livewire\SendLogs::class)->name('log');
 });

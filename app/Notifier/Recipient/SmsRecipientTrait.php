@@ -6,9 +6,9 @@ namespace App\Notifier\Recipient;
 
 trait SmsRecipientTrait
 {
-    private $phone;
-    private $country;
-    private $countryCode;
+    private string $phone;
+    private string $country;
+    private string $countryCode;
 
     public function getPhone(): string
     {
