@@ -18,7 +18,7 @@
         "laravel/framework": "^8.12",
         "laravel/jetstream": "^2.3",
         "laravel/passport": "^10.1",
-        "laravel/sanctum": "^2.6",
+        "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.0",
         "propaganistas/laravel-phone": "^4.3",

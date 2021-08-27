@@ -122,6 +122,6 @@ class ChannelManagement extends Component
     {
         return view('livewire.channel-management', [
             'channels' => $this->rows,
-        ])->layout('layouts.app', ['header' => 'Channel']);
+        ])->layout('layouts.app', ['header' => 'Channels']);
     }
 }

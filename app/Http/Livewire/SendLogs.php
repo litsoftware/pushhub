@@ -50,6 +50,6 @@ class SendLogs extends Component
     {
         return view('livewire.send-logs', [
             'rows' => $this->rows
-        ])->layout('layouts.app', ['header' => 'Send Log']);
+        ])->layout('layouts.app', ['header' => 'Send Logs']);
     }
 }

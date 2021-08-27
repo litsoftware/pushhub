@@ -9,7 +9,11 @@ Route::any('health-check', function () {
     return 'ok';
 });
 
-Route::group(['prefix' => 'v1', 'name' => 'api.'], function () {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::group(['prefix' => 'v1', 'name' => 'api.', 'middleware' => ['auth:sanctum']], function () {
     Route::post('/webhook', [WebhookController::class, 'index'])->name('webhook');
     Route::post('/upload', [FileUploadController::class, 'store'])->name('media.upload');
 });

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Mail\Mailer;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Sanctum\PersonalAccessToken;
+use Laravel\Sanctum\Sanctum;
 use Livewire\Component;
 
 class AppServiceProvider extends ServiceProvider
@@ -51,5 +53,6 @@ class AppServiceProvider extends ServiceProvider
             $this->dispatchBrowserEvent('notify', $message);
         });
 
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
     }
 }

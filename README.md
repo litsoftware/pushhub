@@ -9,9 +9,10 @@ litNotifier 构建于 Laravel Notification / Job / Queue 之上，提供了一�
 
 ### develop
 
-1. pull code
-2. 修改 `config/notifier_channel.php`，填写消息渠道参数配置
-3. `php artisan serv` 启动服务
+- pull code
+- 修改 `config/notifier_channel.php`，填写消息渠道参数配置
+- `php artisan serv` 启动服务
+- `php artisan migrate`
 
 ### Deploy for production environment
 

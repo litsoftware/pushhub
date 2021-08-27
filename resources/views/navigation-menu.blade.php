@@ -13,11 +13,15 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dash.channel') }}" :active="request()->routeIs('dash.channel')">
-                        Channel
+                        Channels
                     </x-jet-nav-link>
 
                     <x-jet-nav-link href="{{ route('dash.log') }}" :active="request()->routeIs('dash.log')">
-                        Send Log
+                        Send Logs
+                    </x-jet-nav-link>
+
+                    <x-jet-nav-link href="/user/api-tokens" :active="request()->routeIs('dash.log')">
+                        Api Tokens
                     </x-jet-nav-link>
                 </div>
             </div>
