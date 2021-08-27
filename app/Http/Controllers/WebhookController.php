@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Notification;
 
 class WebhookController extends Controller
 {
-    public function __call($method, $parameters)
-    {
-        parent::__call($method, $parameters);
-    }
-
     public function index(Request $request)
     {
         $params = $request->all();
@@ -46,11 +41,6 @@ class WebhookController extends Controller
             'success' => true,
             'notification_id' => $n->getId()
         ]);
-    }
-
-    public function publishToTopic()
-    {
-
     }
 }
 

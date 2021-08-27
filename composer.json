@@ -17,6 +17,7 @@
         "iidestiny/laravel-filesystem-oss": "^2.1",
         "laravel/framework": "^8.12",
         "laravel/jetstream": "^2.3",
+        "laravel/passport": "^10.1",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.0",

@@ -9,6 +9,7 @@ class Media extends Model
     protected $table = 'medias';
 
     const ID = 'id';
+    const USER_ID = 'user_id';
     const PATH = 'path';
     const APP_ID = 'app_id';
     const NAME = 'name';
@@ -20,6 +21,7 @@ class Media extends Model
 
     protected $fillable = [
         self::ID,
+        self::USER_ID,
         self::PATH,
         self::APP_ID,
         self::NAME,

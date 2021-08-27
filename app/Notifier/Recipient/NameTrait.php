@@ -6,7 +6,7 @@ namespace App\Notifier\Recipient;
 
 trait NameTrait
 {
-    private $name;
+    private string $name;
 
     public function getName(): string
     {

@@ -6,26 +6,18 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dash.index') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                        <img src="{{ asset('assets/logo.svg') }}" style="height: 40px;">
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dash.index') }}" :active="request()->routeIs('dash.index')">
-                        控制台
-                    </x-jet-nav-link>
-
-                    <x-jet-nav-link href="{{ route('dash.application') }}" :active="request()->routeIs('dash.application')">
-                        应用
-                    </x-jet-nav-link>
-
                     <x-jet-nav-link href="{{ route('dash.channel') }}" :active="request()->routeIs('dash.channel')">
-                        渠道
+                        Channel
                     </x-jet-nav-link>
 
                     <x-jet-nav-link href="{{ route('dash.log') }}" :active="request()->routeIs('dash.log')">
-                        记录
+                        Send Log
                     </x-jet-nav-link>
                 </div>
             </div>
