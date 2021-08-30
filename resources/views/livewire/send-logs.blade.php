@@ -17,7 +17,7 @@
             </div>
 
             <!-- Table -->
-            <div class="flex-col space-y-4">
+            <div class="flex-col space-y-4 mt-4">
                 <x-table>
                     <x-slot name="head">
                         <x-table.heading sortable multi-column>Title</x-table.heading>

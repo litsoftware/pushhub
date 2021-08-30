@@ -29,7 +29,7 @@
             </div>
 
             <!-- Table -->
-            <div class="flex-col space-y-4">
+            <div class="flex-col space-y-4 mt-4">
                 <x-table>
                     <x-slot name="head">
                         <x-table.heading class="pr-0 w-8">
@@ -78,7 +78,9 @@
                                 </x-table.cell>
 
                                 <x-table.cell>
-                                    {{ $channel->conf }}
+                                    <div class="bg-gray-100 px-4 py-4 rounded-md" style="width: 500px; overflow: scroll">
+                                        {{ $channel->conf }}
+                                    </div>
                                 </x-table.cell>
 
                                 <x-table.cell>
@@ -141,6 +143,14 @@
 
                     <x-input.group for="name" label="Name" :error="$errors->first('editing.name')">
                         <x-input.text wire:model="editing.name" id="name" placeholder="Name" />
+                    </x-input.group>
+
+                    <x-input.group for="type" label="Type" :error="$errors->first('editing.type')">
+                        <x-input.select wire:model="editing.type" id="name" placeholder="Type">
+                            <option value="{{ \App\Notifier\Channel\ChannelTypes::TypeChat }}">即时通信</option>
+                            <option value="{{ \App\Notifier\Channel\ChannelTypes::TypeEmail }}">邮件</option>
+                            <option value="{{ \App\Notifier\Channel\ChannelTypes::TypeSms }}">短信</option>
+                        </x-input.select>
                     </x-input.group>
 
                     <x-input.group for="conf" label="Config" :error="$errors->first('editing.name')">

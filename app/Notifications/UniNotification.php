@@ -54,14 +54,14 @@ class UniNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via(mixed $notifiable): array
     {
         return [$this->channel->getChannel()];
     }
 
     public function getChannelConfiguration(): array
     {
-        return $this->channel->configuration();
+        return $this->channel->configurationFromDB();
     }
 
     public function toSms(): string
@@ -99,7 +99,7 @@ class UniNotification extends Notification
      * @param  mixed  $notifiable
      * @return NotifierMail
      */
-    public function toMail($notifiable): NotifierMail
+    public function toMail(mixed $notifiable): NotifierMail
     {
         return new NotifierMail($this->content);
     }
@@ -110,7 +110,7 @@ class UniNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(mixed $notifiable): array
     {
         return [
             //
