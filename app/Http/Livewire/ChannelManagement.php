@@ -108,7 +108,7 @@ class ChannelManagement extends Component
 
     public function getRowsQueryProperty()
     {
-        $query = Channel::query()->where('user_id', Auth::id());;
+        $query = Channel::query()->where('user_id', Auth::id());
 
         return $this->applySorting($query);
     }
@@ -123,7 +123,7 @@ class ChannelManagement extends Component
     public function render()
     {
         return view('livewire.channel-management', [
-            'channels' => $this->rows,
+            'rows' => $this->rows,
         ])->layout('layouts.app', ['header' => 'Channels']);
     }
 }

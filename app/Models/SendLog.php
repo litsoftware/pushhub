@@ -12,8 +12,13 @@ class SendLog extends Model
     protected $table = 'send_logs';
     public string $header = 'Send Log';
 
+    const STATUS_FAIL = 'fail';
+    const STATUS_PENDING = 'pending';
+    const STATUS_SUCCESS = 'success';
+
     const ID = 'id';
     const USER_ID = 'user_id';
+    const REQUEST_ID = 'request_id';
     const FROM = 'from';
     const TO = 'to';
     const CONTENT = 'content';
@@ -27,6 +32,7 @@ class SendLog extends Model
 
     protected $fillable = [
         self::ID,
+        self::REQUEST_ID,
         self::USER_ID,
         self::FROM,
         self::TO,

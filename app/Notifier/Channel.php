@@ -72,9 +72,9 @@ class Channel
         return config($configKey);
     }
 
-    public function configurationFromDB(): array
+    public function configurationFromDB($userId): array
     {
-        $m = \App\Models\Channel::where('user_id', Auth::id())
+        $m = \App\Models\Channel::where('user_id', $userId)
             ->where(\App\Models\Channel::NAME, sprintf('%s@%s', $this->dsn->getUser(), $this->dsn->getHost()))
             ->where(\App\Models\Channel::TYPE, $this->type)
             ->orderBy(\App\Models\Channel::VERSION, 'desc')

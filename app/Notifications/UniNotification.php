@@ -3,19 +3,29 @@
 namespace App\Notifications;
 
 use App\Mail\NotifierMail;
+use App\Models\User;
 use App\Notifier\Channel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class UniNotification extends Notification
 {
     use Queueable;
 
-    private $channel;
+    public Channel $channel;
+    public User|null $user = null;
+    Public mixed $data = null;
+
     private $from;
     private $content;
     private $noticeId;
+    private $reason;
+
+    public function setData(mixed $data) {
+        $this->data = $data;
+    }
 
     /**
      * Create a new notification instance.
@@ -26,6 +36,7 @@ class UniNotification extends Notification
     {
         $this->channel = $channel;
         $this->noticeId = (string)Str::uuid();
+        $this->user = Auth::user();
     }
 
     public function getId(): string
@@ -61,7 +72,7 @@ class UniNotification extends Notification
 
     public function getChannelConfiguration(): array
     {
-        return $this->channel->configurationFromDB();
+        return $this->channel->configurationFromDB($this->user->{User::ID});
     }
 
     public function toSms(): string
@@ -115,5 +126,13 @@ class UniNotification extends Notification
         return [
             //
         ];
+    }
+
+    function getReason(): string {
+        return (string)$this->reason;
+    }
+
+    function setReason(string $s) {
+        $this->reason = $s;
     }
 }

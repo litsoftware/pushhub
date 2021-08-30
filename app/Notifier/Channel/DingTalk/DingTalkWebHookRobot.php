@@ -97,8 +97,7 @@ class DingTalkWebHookRobot
         $result = json_decode($result, true);
 
         if (isset($result['errcode']) && $result['errcode'] != 0) {
-            dd($result);
-            throw new ChannelUpstreamException($result['errmsg']);
+            throw new ChannelUpstreamException(sprintf('%s:%s', $result['errcode'], $result['errmsg']));
         }
     }
 
