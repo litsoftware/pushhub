@@ -22,12 +22,12 @@ class WebhookController extends Controller
         $params = $request->all();
 
         try {
-            if (!isset($params['dsn']) && !$params['dsn'] || !isset($params['data']))
+            if (!isset($params['channel']) && !$params['channel'] || !isset($params['data']))
                 throw new InvalidArgumentException();
 
             $recipient = new Recipient(data_get($params, 'to'));
 
-            $dsn = new Dsn($params['dsn']);
+            $dsn = new Dsn($params['channel']);
             $channel = new Channel($dsn);
             $n = new UniNotification($channel);
             $n->setData($params);

@@ -37,7 +37,7 @@ litNotifier 可以非常方便的发送消息到不同的渠道，且支持多�
 SMS 消息支持模板消息和纯文本消息。
 
 
-|服务提供商| DSN |
+|服务提供商| channel |
 |:---|:---|
 |阿里云SMS|sms://<配置名称>@aliyun|
 |腾讯云SMS|sms://<配置名称>@qcloud|
@@ -48,7 +48,7 @@ SMS 消息支持模板消息和纯文本消息。
 邮件支持发送纯文本、本地邮件模板、附件。
 
 
-|服务提供商| DSN |
+|服务提供商| channel |
 |:---|:---|
 |SMTP 邮件服务|email://<配置名称>@smtp|
 
@@ -59,7 +59,7 @@ SMS 消息支持模板消息和纯文本消息。
 具体请见各软件支持情况。
 
 
-|服务提供商| DSN | 文档 |
+|服务提供商| channel | 文档 |
 |:---|:---|:---|
 |企业微信消息|chat://<配置名称>@wecom|[官方文档](https://work.weixin.qq.com/api/doc/90000/90136/91770)|
 |钉钉消息|chat://<配置名称>@dingtalk|[官方文档](https://developers.dingtalk.com/document/app/custom-robot-access)|
@@ -80,7 +80,7 @@ SMS 消息支持模板消息和纯文本消息。
         -H 'Content-Type: application/json' \
         -d '
         {
-          "dsn": "text",
+          "channel": "text",
           "data": {
             "content": '消息内容' 
           }
@@ -110,7 +110,7 @@ SMS 消息支持模板消息和纯文本消息。
 ### EMAIL
 
     {
-        "dsn": "email://default@aliyun",
+        "channel": "email://default@aliyun",
         "from": {
             "name": "test",
             "address": "test@qq.com"
@@ -130,7 +130,7 @@ SMS 消息支持模板消息和纯文本消息。
 ### SMS
     
     {
-        "dsn": "sms://default@aliyun",
+        "channel": "sms://default@aliyun",
         "to": {
             "country": "CN",
             "country_code": "+86",
@@ -149,7 +149,7 @@ SMS 消息支持模板消息和纯文本消息。
 content 结构同官方，参考： https://work.weixin.qq.com/api/doc/90000/90136/91770
 
     {
-        "dsn": "chat://default@wecom",
+        "channel": "chat://default@wecom",
         "data": {
             "content": []
         },
@@ -161,7 +161,7 @@ content 结构同官方，参考： https://work.weixin.qq.com/api/doc/90000/901
 content 结构同官方，参考： https://developers.dingtalk.com/document/robots/custom-robot-access
 
     {
-        "dsn": "chat://default@dingtalk",
+        "channel": "chat://default@dingtalk",
         "data": {
             "content": []
         },
