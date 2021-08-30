@@ -19,11 +19,12 @@ class CreateChannels extends Migration
             $table->bigInteger('user_id');
             $table->enum('type', ['unknown', 'chat', 'email', 'sms']);
             $table->string('title')->default('');
-            $table->string('name')->default('')->unique();
+            $table->string('name')->default('');
             $table->json('conf')->nullable();
             $table->integer('version')->default(1);
             $table->enum('status', ['unknown', 'valid', 'invalid'])->default('unknown');
 
+            $table->unique(['type', 'name']);
             $table->timestamps();
         });
     }
