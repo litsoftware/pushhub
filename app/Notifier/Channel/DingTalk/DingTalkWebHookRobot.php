@@ -80,7 +80,10 @@ class DingTalkWebHookRobot
         try {
             $response = $this->client->post('', [
                 'query' => $query,
-                'json' => (array)$this->msg,
+                'headers' => [
+                    'Content-Type' => 'application/json;charset=utf-8'
+                ],
+                'json' => (array)$this->msg
             ]);
         } catch (GuzzleException $e) {
             throw new ChannelUpstreamException($e->getMessage());
@@ -94,7 +97,7 @@ class DingTalkWebHookRobot
         $result = json_decode($result, true);
 
         if (isset($result['errcode']) && $result['errcode'] != 0) {
-            throw new ChannelUpstreamException($result['errmsg']);
+            throw new ChannelUpstreamException(sprintf('%s:%s', $result['errcode'], $result['errmsg']));
         }
     }
 

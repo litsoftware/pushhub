@@ -158,7 +158,7 @@ content 结构同官方，参考： https://work.weixin.qq.com/api/doc/90000/901
 
 ### DingTalk
 
-content 结构同官方，参考： https://developers.dingtalk.com/document/app/custom-robot-access/title-72m-8ag-pqw
+content 结构同官方，参考： https://developers.dingtalk.com/document/robots/custom-robot-access
 
     {
         "dsn": "chat://default@dingtalk",

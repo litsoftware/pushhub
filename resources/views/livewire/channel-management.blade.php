@@ -29,14 +29,14 @@
             </div>
 
             <!-- Table -->
-            <div class="flex-col space-y-4">
+            <div class="flex-col space-y-4 mt-4">
                 <x-table>
                     <x-slot name="head">
                         <x-table.heading class="pr-0 w-8">
                             <x-input.checkbox wire:model="selectPage" />
                         </x-table.heading>
                         <x-table.heading sortable multi-column>Title</x-table.heading>
-                        <x-table.heading sortable multi-column>Name</x-table.heading>
+                        <x-table.heading sortable multi-column>DSN</x-table.heading>
                         <x-table.heading sortable multi-column>Configuration</x-table.heading>
                         <x-table.heading sortable multi-column>Version</x-table.heading>
                         <x-table.heading sortable multi-column>Created At</x-table.heading>
@@ -49,48 +49,50 @@
                                 <x-table.cell colspan="6">
                                     @unless ($selectAll)
                                         <div>
-                                            <span>You have selected <strong>{{ $channels->count() }}</strong> channels, do you want to select all <strong>{{ $channels->total() }}</strong>?</span>
+                                            <span>You have selected <strong>{{ $rows->count() }}</strong> channels, do you want to select all <strong>{{ $rows->total() }}</strong>?</span>
                                             <x-button.link wire:click="selectAll" class="ml-1 text-blue-600">Select All</x-button.link>
                                         </div>
                                     @else
-                                        <span>You are currently selecting all <strong>{{ $channels->total() }}</strong> channels.</span>
+                                        <span>You are currently selecting all <strong>{{ $rows->total() }}</strong> channels.</span>
                                     @endif
                                 </x-table.cell>
                             </x-table.row>
                         @endif
 
-                        @forelse ($channels as $channel)
-                            <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $channel->id }}">
+                        @forelse ($rows as $row)
+                            <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $row->id }}">
                                 <x-table.cell class="pr-0">
-                                    <x-input.checkbox wire:model="selected" value="{{ $channel->id }}" />
+                                    <x-input.checkbox wire:model="selected" value="{{ $row->id }}" />
                                 </x-table.cell>
 
                                 <x-table.cell>
                                     <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
                                         <p class="text-cool-gray-600 truncate">
-                                            {{ $channel->title }}
+                                            {{ $row->title }}
                                         </p>
                                     </span>
                                 </x-table.cell>
 
                                 <x-table.cell>
-                                    <span class="text-cool-gray-900 font-medium">{{ $channel->name }} </span>
+                                    <span class="text-cool-gray-900 font-medium">{{ sprintf("%s://%s", $row->type, $row->name) }} </span>
                                 </x-table.cell>
 
                                 <x-table.cell>
-                                    {{ $channel->conf }}
+                                    <div class="bg-gray-100 px-4 py-4 rounded-md" style="width: 500px; overflow: scroll">
+                                        {{ $row->conf }}
+                                    </div>
                                 </x-table.cell>
 
                                 <x-table.cell>
-                                    {{ $channel->version }}
+                                    {{ $row->version }}
                                 </x-table.cell>
 
                                 <x-table.cell>
-                                    {{ $channel->created_at }}
+                                    {{ $row->created_at }}
                                 </x-table.cell>
 
                                 <x-table.cell>
-                                    <x-button.link wire:click="edit({{ $channel->id }})">Edit</x-button.link>
+                                    <x-button.link wire:click="edit({{ $row->id }})">Edit</x-button.link>
                                 </x-table.cell>
                             </x-table.row>
                         @empty
@@ -107,7 +109,7 @@
                 </x-table>
 
                 <div>
-                    {{ $channels->links() }}
+                    {{ $rows->links() }}
                 </div>
             </div>
         </div>
@@ -141,6 +143,15 @@
 
                     <x-input.group for="name" label="Name" :error="$errors->first('editing.name')">
                         <x-input.text wire:model="editing.name" id="name" placeholder="Name" />
+                    </x-input.group>
+
+                    <x-input.group for="type" label="Type" :error="$errors->first('editing.type')">
+                        <x-input.select wire:model="editing.type" id="name" placeholder="Type">
+                            <option>请选择</option>
+                            <option value="{{ \App\Notifier\Channel\ChannelTypes::TypeChat }}">即时通信</option>
+                            <option value="{{ \App\Notifier\Channel\ChannelTypes::TypeEmail }}">邮件</option>
+                            <option value="{{ \App\Notifier\Channel\ChannelTypes::TypeSms }}">短信</option>
+                        </x-input.select>
                     </x-input.group>
 
                     <x-input.group for="conf" label="Config" :error="$errors->first('editing.name')">

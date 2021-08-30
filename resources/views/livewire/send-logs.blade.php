@@ -17,51 +17,42 @@
             </div>
 
             <!-- Table -->
-            <div class="flex-col space-y-4">
+            <div class="flex-col space-y-4 mt-4">
                 <x-table>
                     <x-slot name="head">
-                        <x-table.heading sortable multi-column>Title</x-table.heading>
-                        <x-table.heading sortable multi-column>Name</x-table.heading>
-                        <x-table.heading sortable multi-column>Configuration</x-table.heading>
-                        <x-table.heading sortable multi-column>Version</x-table.heading>
-                        <x-table.heading sortable multi-column>Created At</x-table.heading>
-                        <x-table.heading />
+                        <x-table.heading sortable multi-column wire:click="sortBy('id')" :direction="$sorts['id'] ?? null" >ID</x-table.heading>
+                        <x-table.heading sortable multi-column wire:click="sortBy('updated_at')" :direction="$sorts['updated_at'] ?? null">Time</x-table.heading>
+                        <x-table.heading sortable multi-column wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">Status</x-table.heading>
+                        <x-table.heading sortable multi-column wire:click="sortBy('content')" :direction="$sorts['content'] ?? null">Content</x-table.heading>
                     </x-slot>
 
                     <x-slot name="body">
                         @forelse ($rows as $row)
                             <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $row->id }}">
                                 <x-table.cell>
+                                    {{ $row->id }}
+                                </x-table.cell>
+
+                                <x-table.cell>
                                     <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
                                         <p class="text-cool-gray-600 truncate">
-                                            {{ $row->title }}
+                                            {{ $row->updated_at }}
                                         </p>
                                     </span>
                                 </x-table.cell>
 
                                 <x-table.cell>
-                                    <span class="text-cool-gray-900 font-medium">{{ $row->name }} </span>
+                                    <div>{{ $row->status }}</div>
+                                    <div>{{ $row->reason }}</div>
                                 </x-table.cell>
 
                                 <x-table.cell>
-                                    {{ $row->conf }}
-                                </x-table.cell>
-
-                                <x-table.cell>
-                                    {{ $row->version }}
-                                </x-table.cell>
-
-                                <x-table.cell>
-                                    {{ $row->created_at }}
-                                </x-table.cell>
-
-                                <x-table.cell>
-                                    <x-button.link wire:click="edit({{ $row->id }})">Edit</x-button.link>
+                                    {{ $row->content }}
                                 </x-table.cell>
                             </x-table.row>
                         @empty
                             <x-table.row>
-                                <x-table.cell colspan="7">
+                                <x-table.cell colspan="3">
                                     <div class="flex justify-center items-center space-x-2">
                                         <x-icon.inbox class="h-8 w-8 text-cool-gray-400" />
                                         <span class="font-medium py-8 text-cool-gray-400 text-xl">No data found...</span>

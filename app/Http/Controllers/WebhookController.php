@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 
+use App\Events\MsgSentEvent;
+use App\Events\MsgSentFailEvent;
+use App\Events\MsgSentSuccessEvent;
+use App\Events\NewMessageEvent;
 use App\Exceptions\InvalidArgumentException;
 use App\Notifications\UniNotification;
 use App\Notifier\Channel;
@@ -26,10 +30,20 @@ class WebhookController extends Controller
             $dsn = new Dsn($params['dsn']);
             $channel = new Channel($dsn);
             $n = new UniNotification($channel);
+            $n->setData($params);
             $n->from(data_get($params, 'from'));
             $n->content($params['data']);
 
-            Notification::route('notifier', $recipient)->notify($n);
+            event(new NewMessageEvent($n));
+
+            try {
+                Notification::route('notifier', $recipient)->notify($n);
+                event(new MsgSentSuccessEvent($n));
+            } catch (\Throwable $e) {
+                $n->setReason($e->getMessage());
+                event(new MsgSentFailEvent($n));
+                throw $e;
+            }
         } catch (\Throwable $e) {
             return response()->json([
                 'success' => false,

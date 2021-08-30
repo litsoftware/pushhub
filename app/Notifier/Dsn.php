@@ -5,17 +5,18 @@ namespace App\Notifier;
 
 
 use InvalidArgumentException;
+use Symfony\Component\Translation\Exception\MissingRequiredOptionException;
 
 final class Dsn
 {
-    private $scheme;
-    private $host;
-    private $user;
-    private $password;
-    private $port;
-    private $path;
-    private $options;
-    private $originalDsn;
+    private mixed $scheme;
+    private mixed $host;
+    private ?string $user;
+    private ?string $password;
+    private mixed $port;
+    private mixed $path;
+    private mixed $options;
+    private string $originalDsn;
 
     public function __construct(string $dsn)
     {

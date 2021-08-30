@@ -17,6 +17,7 @@ class CreateSendLogs extends Migration
             $table->id();
 
             $table->bigInteger('user_id');
+            $table->string('request_id')->default('')->unique();
             $table->json('from')->nullable();
             $table->json('to')->nullable();
             $table->json('content')->nullable();

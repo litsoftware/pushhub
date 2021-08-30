@@ -20,7 +20,7 @@
                         Send Logs
                     </x-jet-nav-link>
 
-                    <x-jet-nav-link href="/user/api-tokens" :active="request()->routeIs('dash.log')">
+                    <x-jet-nav-link href="/user/api-tokens" :active="request()->path() == 'user/api-tokens'">
                         Api Tokens
                     </x-jet-nav-link>
                 </div>

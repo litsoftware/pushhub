@@ -7,6 +7,7 @@ use App\Http\Livewire\DataTable\WithCachedRows;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Channel;
+use App\Notifier\Channel\ChannelTypes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -30,6 +31,7 @@ class ChannelManagement extends Component
         'editing.name' => 'required',
         'editing.conf' => 'required',
         'editing.version' => '',
+        'editing.type' => 'required|in:'.implode(',', ChannelTypes::allTypes()),
     ]; }
 
     public function mount() { $this->editing = $this->makeBlankChannel(); }
@@ -106,7 +108,7 @@ class ChannelManagement extends Component
 
     public function getRowsQueryProperty()
     {
-        $query = Channel::query()->where('user_id', Auth::id());;
+        $query = Channel::query()->where('user_id', Auth::id());
 
         return $this->applySorting($query);
     }
@@ -121,7 +123,7 @@ class ChannelManagement extends Component
     public function render()
     {
         return view('livewire.channel-management', [
-            'channels' => $this->rows,
+            'rows' => $this->rows,
         ])->layout('layouts.app', ['header' => 'Channels']);
     }
 }
