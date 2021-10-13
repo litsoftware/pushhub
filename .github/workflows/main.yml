@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - development
+      - main
 
 env:
   IMAGE_NS_PRODUCTION: justap
