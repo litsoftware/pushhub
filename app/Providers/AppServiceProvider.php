@@ -56,6 +56,10 @@ class AppServiceProvider extends ServiceProvider
 
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 
+        if ($this->app->environment('production')) {
+            \URL::forceScheme('https');
+        }
+
         Builder::macro('toCsv', function () {
             $results = $this->get();
 
