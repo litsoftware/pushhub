@@ -23,16 +23,16 @@ final class Dsn
         $this->originalDsn = $dsn;
 
         if (false === $parsedDsn = parse_url($dsn)) {
-            throw new InvalidArgumentException(sprintf('The "%s" notifier DSN is invalid.', $dsn));
+            throw new InvalidArgumentException(sprintf('The "%s" notifier channel is invalid.', $dsn));
         }
 
         if (!isset($parsedDsn['scheme'])) {
-            throw new InvalidArgumentException(sprintf('The "%s" notifier DSN must contain a scheme.', $dsn));
+            throw new InvalidArgumentException(sprintf('The "%s" notifier channel must contain a scheme.', $dsn));
         }
         $this->scheme = $parsedDsn['scheme'];
 
         if (!isset($parsedDsn['host'])) {
-            throw new InvalidArgumentException(sprintf('The "%s" notifier DSN must contain a host (use "default" by default).', $dsn));
+            throw new InvalidArgumentException(sprintf('The "%s" notifier channel must contain a host (use "default" by default).', $dsn));
         }
         $this->host = $parsedDsn['host'];
 
