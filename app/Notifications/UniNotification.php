@@ -83,25 +83,25 @@ class UniNotification extends Notification
     public function toTmplSms(): array
     {
         return [
-            'tmpl_id' => $this->content['tmpl_id'],
-            'params' => $this->content['params'],
-            'sign' => $this->content['sign'],
+            'tmpl_id' => data_get($this->content, 'tmpl_id'),
+            'params' => data_get($this->content, 'params'),
+            'sign' => data_get($this->content, 'sign'),
         ];
     }
 
     public function toText(): string
     {
-        return $this->content['content'];
+        return data_get($this->content, 'content');
     }
 
     public function toWeCom(): array
     {
-        return $this->content['content'];
+        return data_get($this->content, 'content');
     }
 
     public function toDingTalk(): array
     {
-        return $this->content['content'];
+        return data_get($this->content, 'content');
     }
 
     /**
