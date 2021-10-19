@@ -45,6 +45,7 @@ class WebhookController extends Controller
                 throw $e;
             }
         } catch (\Throwable $e) {
+            dd($e);
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
