@@ -13,6 +13,7 @@ use App\Notifier\Channel;
 use App\Notifier\Dsn;
 use App\Notifier\Recipient\Recipient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 class WebhookController extends Controller
@@ -45,6 +46,8 @@ class WebhookController extends Controller
                 throw $e;
             }
         } catch (\Throwable $e) {
+            Log::error("发送出错了", ['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
