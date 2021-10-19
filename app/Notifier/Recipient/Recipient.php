@@ -39,7 +39,11 @@ class Recipient implements NameInterface, EmailRecipientInterface, SmsRecipientI
             } catch (ValidationException $e) {
             }
 
-            if ('' === data_get($email, 'to') && '' === data_get($phone, 'to')) {
+            if (!isset($email) && !isset($phone)) {
+                throw new InvalidArgumentException(sprintf('"%s" needs an email or a phone but both cannot be empty.', static::class));
+            }
+
+            if (isset($email) && '' === data_get($email, 'to') || isset($phone) && '' === data_get($phone, 'to')) {
                 throw new InvalidArgumentException(sprintf('"%s" needs an email or a phone but both cannot be empty.', static::class));
             }
         }
