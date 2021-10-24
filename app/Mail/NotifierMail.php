@@ -35,6 +35,9 @@ class NotifierMail extends Mailable
         }
 
         $view = data_get($this->data, 'view', 'mail.default');
+        if (!$view)
+            $view = 'mail.default';
+
         $params = array_merge([
             'content' =>data_get($this->data, 'content', ''),
         ], data_get($this->data, 'params', []));
