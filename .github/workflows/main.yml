@@ -34,17 +34,17 @@ jobs:
 
           # generate image
           # fpm
-          export IMAGE_FPM="${{ secrets.ALIYUN_REGISTRY_URL }}/${IMAGE_NS}/${FPM_IMAGE_NAME}:0.0.${GITHUB_RUN_NUMBER}"
+          export IMAGE_FPM="${{ secrets.ALIYUN_REGISTRY_URL }}/${IMAGE_NS}/${FPM_IMAGE_NAME}:0.1.${GITHUB_RUN_NUMBER}"
           export IMAGE_FPM_LATEST="${{ secrets.ALIYUN_REGISTRY_URL }}/${IMAGE_NS}/${FPM_IMAGE_NAME}:latest"
           docker build -t $IMAGE_FPM -t $IMAGE_FPM_LATEST --target fpm .
 
           # cli
-          export IMAGE_CLI="${{ secrets.ALIYUN_REGISTRY_URL }}/${IMAGE_NS}/${CLI_IMAGE_NAME}:0.0.${GITHUB_RUN_NUMBER}"
+          export IMAGE_CLI="${{ secrets.ALIYUN_REGISTRY_URL }}/${IMAGE_NS}/${CLI_IMAGE_NAME}:0.1.${GITHUB_RUN_NUMBER}"
           export IMAGE_CLI_LATEST="${{ secrets.ALIYUN_REGISTRY_URL }}/${IMAGE_NS}/${CLI_IMAGE_NAME}:latest"
           docker build -t $IMAGE_CLI -t $IMAGE_CLI_LATEST  --target cli .
 
           # nginx
-          export IMAGE_NGINX="${{ secrets.ALIYUN_REGISTRY_URL }}/${IMAGE_NS}/${NGINX_IMAGE_NAME}:0.0.${GITHUB_RUN_NUMBER}"
+          export IMAGE_NGINX="${{ secrets.ALIYUN_REGISTRY_URL }}/${IMAGE_NS}/${NGINX_IMAGE_NAME}:0.1.${GITHUB_RUN_NUMBER}"
           export IMAGE_NGINX_LATEST="${{ secrets.ALIYUN_REGISTRY_URL }}/${IMAGE_NS}/${NGINX_IMAGE_NAME}:latest"
           docker build -t $IMAGE_NGINX -t $IMAGE_NGINX_LATEST  --target web .
 
