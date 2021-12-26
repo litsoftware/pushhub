@@ -22,32 +22,39 @@ class WebhookController extends Controller
     {
         $params = $request->all();
 
+        Log::info('params: ', $params);
+
+        if (!isset($params['channel']) && !$params['channel'] || !isset($params['data']))
+            throw new InvalidArgumentException();
+
         try {
-            if (!isset($params['channel']) && !$params['channel'] || !isset($params['data']))
-                throw new InvalidArgumentException();
-
             $recipient = new Recipient(data_get($params, 'to'));
-
-            $dsn = new Dsn($params['channel']);
-            $channel = new Channel($dsn);
-            $n = new UniNotification($channel);
-            $n->setData($params);
-            $n->from(data_get($params, 'from'));
-            $n->content($params['data']);
-
-            event(new NewMessageEvent($n));
-
-            try {
-                Notification::route('notifier', $recipient)->notify($n);
-                event(new MsgSentSuccessEvent($n));
-            } catch (\Throwable $e) {
-                $n->setReason($e->getMessage());
-                event(new MsgSentFailEvent($n));
-                throw $e;
-            }
         } catch (\Throwable $e) {
-            Log::error("发送出错了", ['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            Log::error("格式化参数出错了", ['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
 
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+        $dsn = new Dsn($params['channel']);
+        $channel = new Channel($dsn);
+        $n = new UniNotification($channel);
+        $n->setData($params);
+        $n->from(data_get($params, 'from'));
+        $n->content($params['data']);
+
+        event(new NewMessageEvent($n));
+
+        try {
+            Notification::route('notifier', $recipient)->notify($n);
+            event(new MsgSentSuccessEvent($n));
+        } catch (\Throwable $e) {
+            $n->setReason($e->getMessage());
+            event(new MsgSentFailEvent($n));
+
+            Log::error("发送出错了", ['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
