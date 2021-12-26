@@ -120,6 +120,7 @@ SMS 消息支持模板消息和纯文本消息。
             "to": "haha@qq.com"
         },
         "data": {
+            "subject: "邮件标题",
             "content": "测试消息",
             "view": "email.haha",
             "params": [],

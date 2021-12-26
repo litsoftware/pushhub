@@ -5,6 +5,7 @@ namespace App\Notifier\Recipient;
 
 
 use App\Exceptions\InvalidArgumentException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -26,6 +27,7 @@ class Recipient implements NameInterface, EmailRecipientInterface, SmsRecipientI
                 $this->email(data_get($email, 'to'));
                 $this->name($to['name']);
             } catch (ValidationException $e) {
+                Log::error("验证失败1");
             }
 
             try {
@@ -37,9 +39,14 @@ class Recipient implements NameInterface, EmailRecipientInterface, SmsRecipientI
                 $this->country($to['country']);
                 $this->countryCode($to['country_code']);
             } catch (ValidationException $e) {
+                Log::error("验证失败2");
             }
 
-            if ('' === data_get($email, 'to') && '' === data_get($phone, 'to')) {
+            if (!isset($email) && !isset($phone)) {
+                throw new InvalidArgumentException(sprintf('"%s" needs an email or a phone but both cannot be empty.', static::class));
+            }
+
+            if (isset($email) && '' === data_get($email, 'to') || isset($phone) && '' === data_get($phone, 'to')) {
                 throw new InvalidArgumentException(sprintf('"%s" needs an email or a phone but both cannot be empty.', static::class));
             }
         }
