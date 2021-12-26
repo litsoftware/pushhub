@@ -34,13 +34,14 @@ class NotifierMail extends Mailable
             $this->subject($subject);
         }
 
-        if (!data_get($this->data, 'view', null)) {
+        $view = data_get($this->data, 'view', null);
+        if (!$view || $view == '') {
             return $this->view('mail.default', [
-                'content' => $this->data['content']
+                'content' => data_get($this->data, 'content', null)
             ]);
         } else {
             $params = data_get($this->data, 'params', []);
-            return $this->view($this->data['view'], compact('params'));
+            return $this->view($view, compact('params'));
         }
     }
 }
