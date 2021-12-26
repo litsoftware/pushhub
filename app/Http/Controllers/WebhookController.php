@@ -22,6 +22,8 @@ class WebhookController extends Controller
     {
         $params = $request->all();
 
+        Log::info('params: ', $params);
+
         if (!isset($params['channel']) && !$params['channel'] || !isset($params['data']))
             throw new InvalidArgumentException();
 
