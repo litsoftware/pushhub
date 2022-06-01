@@ -28,7 +28,7 @@ class WeComChannel
         $msgType = $content['msgtype'];
         Types::check($msgType);
 
-        $client = new WeComWebHookRobot($config['webhook'], $config['key']);
+        $client = new WeComWebHookRobot($config['key']);
 
         switch ($msgType) {
             case Types::TEXT:
